@@ -1,0 +1,70 @@
+:root {
+    --background-color: GhostWhite;
+    --font-family: Arial, sans-serif;
+    --primary-color: SteelBlue;
+    --secondary-color: IndianRed;
+    --highlight-color: MediumSeaGreen;
+    --text-color: DimGray;
+    --link-color: RoyalBlue;
+    --link-hover-color: DarkOrange;
+    --button-background: MediumSlateBlue;
+    --button-hover-background: DarkOrange;
+    --header-background: DarkBlue;
+    --header-font-color: Black;
+}
+
+body {
+    background-color: var(--background-color);
+    font-family: var(--font-family);
+    text-align: center;
+}
+
+loadingIndicator {
+    display: none;
+    background-color: var(--background-color);
+    text-align: center;
+    padding: 10px;
+}
+
+header {
+    background-color: var(--header-background);
+    color: var(--header-font-color);
+    padding: 20px;
+}
+
+section {
+    background-color: var(--secondary-color);
+    color: White;
+    margin: 20px;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+h1 {
+    color: var(--highlight-color);
+}
+
+p {
+    color: var(--text-color);
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--link-hover-color);
+}
+
+button {
+    background-color: var(--button-background);
+    color: White;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--button-hover-background);
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM GPT Creator</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+    sub {
+        font-size: 40%;
+    }
+    </style>
+</head>
+<body>
+    <header>
+    <h1>LLM GPT Creator <sub>Powered by Team Not Found</sub></h1>
+    </header>
+    <div id="loadingIndicator" style="display: none;">
+        Generating Answer...
+    </div>
+    <input type="text" id="inputText" style="width: 400px;">
+    <button onclick="generateResponse()">Generate Response</button>
+    <p id="response"></p>
+
+    <!-- Your feedback form code starts here -->
+    <form id="feedbackForm">
+        <label for="inputTextFeedback">Input Text:</label>
+        <input type="text" id="inputTextFeedback" name="inputTextFeedback" required>
+
+        <label for="generatedResponseFeedback">Generated Response:</label>
+        <input type="text" id="generatedResponseFeedback" name="generatedResponseFeedback" required>
+
+        <label for="feedbackScore">Feedback Score:</label>
+        <select id="feedbackScore" name="feedbackScore" required>
+            <option value="-1">Unsatisfied</option>
+            <option value="0">Neutral</option>
+            <option value="1">Satisfied</option>
+        </select>
+
+        <button type="button" onclick="submitFeedback()">Submit Feedback</button>
+    </form>
+
+    <script>
+        function submitFeedback() {
+            // Get form data
+            const inputTextFeedback = document.getElementById('inputTextFeedback').value;
+            const generatedResponseFeedback = document.getElementById('generatedResponseFeedback').value;
+            const feedbackScore = document.getElementById('feedbackScore').value;
+
+            // Create JSON data
+            const feedbackData = {
+                'input': inputTextFeedback,
+                'response': generatedResponseFeedback,
+                'score': parseInt(feedbackScore)
+            };
+
+            // Send POST request to the server
+            fetch('/collect_feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(feedbackData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Feedback submitted successfully:', data);
+            })
+            .catch(error => {
+                console.error('Error submitting feedback:', error);
+            });
+        }
+    </script>
+    <!-- Your feedback form code ends here -->
+
+    <script>
+        function showLoadingIndicator() {
+            document.getElementById("loadingIndicator").style.display = "block";
+        }
+
+        function generateResponse() {
+            showLoadingIndicator();
+            setTimeout(function () {
+                hideLoadingIndicator();
+            }, 3000);
+            var inputText = document.getElementById("inputText").value;
+
+            fetch('/generate_response', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: inputText })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("response").textContent = data.response;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function hideLoadingIndicator() {
+            document.getElementById("loadingIndicator").style.display = "none";
+        }
+    </script>
+</body>
+</html>
