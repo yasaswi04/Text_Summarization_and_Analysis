@@ -24,10 +24,10 @@ Flask (pip install flask)
 
 # Installation
 Clone the repository:
-git clone https://github.com/Krishna-444-dev/cusLLM.git
+git clone https://github.com/yasaswi04/Text_Summarization_and_Analysis.git
 
 Navigate to the project directory:
-cd llm-gpt-creator
+cd Text_Summarization_and_Analysis
 
 Install dependencies:
 pip install -r requirements.txt
